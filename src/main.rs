@@ -32,8 +32,6 @@ fn main() -> Result<()> {
     env_logger::init();
     info!("starting up");
     let mut cfg: utils::config::AppConfig = confy::load("adr-rs", None)?;
-    println!("{:#?}", cfg);
-
     let cli = Cli::parse();
     match &cli.command {
         Commands::Init(args) => {
