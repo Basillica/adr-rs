@@ -21,11 +21,7 @@ fn new_command() -> Result<(), Box<dyn std::error::Error>> {
     cmd.assert()
         .success();
         // .stdout(predicate::str::contains("0001-record-architecture-decisions.md"));
-    Ok(())
-}
 
-#[test]
-fn list_command() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("adr-rs")?;
 
     cmd.arg("list");
