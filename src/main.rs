@@ -34,12 +34,6 @@ fn main() -> Result<()> {
     let mut cfg: utils::config::AppConfig = confy::load("adr-rs", None)?;
     println!("{:#?}", cfg);
 
-    // let filename = "my_adr.md"; // Replace with your ADR file path
-    // match utils::file::read_and_parse_adr(filename) {
-    //     Ok(template) => println!("{}", template),
-    //     Err(err) => println!("Error: {}", err),
-    // }
-
     let cli = Cli::parse();
     match &cli.command {
         Commands::Init(args) => {

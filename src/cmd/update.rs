@@ -56,7 +56,7 @@ impl UpdateArgs {
         }
     }
 
-    fn _find_file_by_prefix(file_id: &str, base_path: &PathBuf) -> Option<String> {
+    fn _find_file_by_prefix(_file_id: &str, base_path: &PathBuf) -> Option<String> {
         // Iterate through entries in the base path
         let paths = fs::read_dir(base_path).unwrap();
         for path in paths {

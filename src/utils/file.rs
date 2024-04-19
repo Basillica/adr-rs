@@ -8,7 +8,7 @@ use utils::config::AppConfig;
 use std::io::Write;
 use std::fs;
 use pulldown_cmark::{Event, HeadingLevel, Parser, Tag};
-use crate::{adr, utils::file};
+use crate::adr;
 use crate::utils;
 
 pub struct AdrManager<'a>{
@@ -189,5 +189,24 @@ impl<'a> AdrManager<'a> {
             }
         }
         return true;
+    }
+
+    pub fn list_adr(&mut self, path: Option<PathBuf>) -> Vec<String> {
+        let target_dir = match path {
+            Some(v) => v,
+            None => self.cfg.doc_path().to_path_buf(),
+        };
+        let target_dir = Path::new(&target_dir);
+        let mut files: Vec<String> = vec![];
+        if target_dir.is_dir() {
+            for entry in fs::read_dir(target_dir).unwrap() {
+                let entry = entry.unwrap();
+                let path = entry.path();
+                if path.is_file() {
+                  files.push(path.file_name().unwrap().to_str().unwrap().to_string());
+                }
+              }
+        }
+        files
     }
 }

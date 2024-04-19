@@ -27,7 +27,21 @@ impl ::std::default::Default for AppConfig {
 impl AppConfig{
     pub fn _update(&mut self, cfg: &AppConfig) {
         match confy::store(&self.app_name, None, cfg){
-            Ok(_) => println!("app config successfully updated"),
+            Ok(_) => println!("app config successfully updated 000"),
+            Err(e) => println!("there was an error updating app config. error: {:?}", e),
+        };
+    }
+
+    pub fn _update_path(&mut self, path: String) {
+        let config = AppConfig{
+            app_name: self.app_name.clone(),
+            comfy: self.comfy,
+            foo: self.foo,
+            current_adr_number: self.current_adr_number,
+            default_path: path.into(),
+        };
+        match confy::store(&self.app_name, None, config){
+            Ok(_) => println!("app config successfully updated 111"),
             Err(e) => println!("there was an error updating app config. error: {:?}", e),
         };
     }
@@ -47,7 +61,7 @@ impl AppConfig{
     pub fn increment_count(&mut self) {
         self.current_adr_number += 1;
         match confy::store(&self.app_name, None, &self){
-            Ok(_) => println!("app config successfully updated"),
+            Ok(_) => println!("app config successfully updated 222"),
             Err(e) => println!("there was an error incrementing app adr count. error: {:?}", e),
         };
     }
