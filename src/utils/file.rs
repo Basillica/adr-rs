@@ -2,12 +2,13 @@ use std::{
     fs::{create_dir_all, File, OpenOptions},
     path::{Path, PathBuf},
 };
+use regex::Regex;
 
 use utils::config::AppConfig;
 use std::io::Write;
 use std::fs;
 use pulldown_cmark::{Event, HeadingLevel, Parser, Tag};
-use crate::adr::{self};
+use crate::{adr, utils::file};
 use crate::utils;
 
 pub struct AdrManager<'a>{
@@ -159,5 +160,34 @@ impl<'a> AdrManager<'a> {
         // You can further process the template here...
     
         Ok(template)
+    }
+
+
+    fn _file_in_dir(&mut self, prefix: &str) -> Option<String> {
+        let target_dir = Path::new(self.cfg.doc_path()); // Replace with your directory path
+        if target_dir.is_dir() {
+            for entry in fs::read_dir(target_dir).unwrap() {
+                let entry = entry.unwrap();
+                let path = entry.path();
+                if let Some(file_name) = path.file_name() {
+                    let file_name_str = file_name.to_str().unwrap();
+                    if file_name_str.starts_with(prefix) {
+                        println!("Found file: {}", path.display());
+                        return Some(file_name_str.to_string());
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    fn _all_adrs(string_list: &[String]) -> bool {
+        let pattern = r"^\d+";
+        for string in string_list {
+            if !Regex::new(pattern).unwrap().is_match(string) {
+                return false;
+            }
+        }
+        return true;
     }
 }

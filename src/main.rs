@@ -61,7 +61,7 @@ fn main() -> Result<()> {
             cmd::unlink::main(args)?;
         },
         Commands::List(args) => {
-            cmd::list::main(args)?;
+            cmd::list::main(args, &mut cfg)?;
         },
         Commands::Update(args) => {
             cmd::update::main(args, &mut cfg)?;
