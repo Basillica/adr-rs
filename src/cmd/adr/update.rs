@@ -8,7 +8,7 @@ use std::fs::{self};
 use crate::utils;
 
 #[derive(Debug, Args)]
-#[command(version, about, long_about = None)]
+#[command(version, about, long_about = None, short_flag = 'p')]
 pub(crate) struct UpdateArgs {
     /// The name of the ADR file to be updated
     file_name: Option<String>,

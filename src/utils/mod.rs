@@ -130,7 +130,7 @@ pub fn now() -> Result<String> {
 }
 
 
-pub fn number_to_string(num: i64) -> String {
+pub fn number_to_string(num: i16) -> String {
     let mut string = format!("{}", num);
     while string.len() < 4 {
       string.insert(0, '0');

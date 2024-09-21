@@ -31,7 +31,7 @@ pub(crate) fn main(args: &NewArgs, cfg: &mut AppConfig) -> Result<()> {
         .set_content(&args.content)
         .set_description(&args.description)
         .set_title(&args.title);
-    let mut manager: AdrManager<'_> = new_manager(&mut adr, cfg, None);
+    let mut manager: AdrManager<'_> = new_manager(&mut adr, cfg);
     match manager.create_adr() {
         Ok(_) => cfg.increment_count(),
         Err(e) => println!("{:?}", e),

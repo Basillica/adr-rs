@@ -2,7 +2,7 @@ use anyhow::Result;
 use clap::Args;
 
 #[derive(Debug, Args)]
-#[command(version, about, long_about = None)]
+#[command(version, about, long_about = None, short_flag = 'u')]
 pub(crate) struct UnlinkArgs {
     /// Directory to initialize
     #[arg(default_value = "doc/adr")]

@@ -1,6 +1,4 @@
 use anyhow::Result;
-use clap::Args;
-use std::path::PathBuf;
 use adr::{adr::Adr, adr::Builder};
 use utils::{config::AppConfig, file::{new_manager, AdrManager}};
 
@@ -8,25 +6,17 @@ use crate::adr;
 use crate::utils;
 
 
-#[derive(Debug, Args)]
-#[command(version, about, long_about = None)]
-pub(crate) struct InitArgs {
-    #[arg(default_value = "docs/adr")]
-    data_dir: PathBuf
-}
-
-pub(crate) fn main(args: &InitArgs, cfg: &mut AppConfig) -> Result<()> {
+pub(crate) fn main(cfg: &mut AppConfig) -> Result<()> {
     let mut adr = Adr::new();
     adr
         .set_content("The content of the ADR")
         .set_description("A short description")
-        .set_title("Record architecture decisions");
+        .set_title("Record architecture decisions")
+        .build();
 
-    let mut manager: AdrManager<'_> = new_manager(&mut adr, cfg, Some(args.data_dir.clone()));
+    let mut manager: AdrManager<'_> = new_manager(&mut adr, cfg);
     match manager.init_adr() {
-        Ok(_) => {
-            cfg.increment_count();
-        },
+        Ok(_) => cfg.increment_count(),
         Err(e) => println!("{:?}", e),
     };
     Ok(())
